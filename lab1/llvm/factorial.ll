@@ -42,8 +42,9 @@ $_ZN3Fac4initEv = comdat any
 
 ; Function Attrs: noinline uwtable
 define internal void @__cxx_global_var_init() #0 section ".text.startup" {
+entry:
   call void @_ZNSt8ios_base4InitC1Ev(%"class.std::ios_base::Init"* @_ZStL8__ioinit)
-  %1 = call i32 @__cxa_atexit(void (i8*)* bitcast (void (%"class.std::ios_base::Init"*)* @_ZNSt8ios_base4InitD1Ev to void (i8*)*), i8* getelementptr inbounds (%"class.std::ios_base::Init", %"class.std::ios_base::Init"* @_ZStL8__ioinit, i32 0, i32 0), i8* @__dso_handle) #3
+  %0 = call i32 @__cxa_atexit(void (i8*)* bitcast (void (%"class.std::ios_base::Init"*)* @_ZNSt8ios_base4InitD1Ev to void (i8*)*), i8* getelementptr inbounds (%"class.std::ios_base::Init", %"class.std::ios_base::Init"* @_ZStL8__ioinit, i32 0, i32 0), i8* @__dso_handle) #3
   ret void
 }
 
@@ -55,232 +56,237 @@ declare dso_local void @_ZNSt8ios_base4InitD1Ev(%"class.std::ios_base::Init"*) u
 ; Function Attrs: nounwind
 declare dso_local i32 @__cxa_atexit(void (i8*)*, i8*, i8*) #3
 
-; Function Attrs: noinline norecurse optnone uwtable
+; Function Attrs: noinline norecurse uwtable
 define dso_local i32 @main() #4 personality i8* bitcast (i32 (...)* @__gxx_personality_v0 to i8*) {
-  %1 = alloca i32, align 4
-  %2 = alloca %class.Fac*, align 8
-  %3 = alloca i8*
-  %4 = alloca i32
-  %5 = alloca i32, align 4
-  store i32 0, i32* %1, align 4
-  %6 = call i8* @_Znwm(i64 16) #9
-  %7 = bitcast i8* %6 to %class.Fac*
-  invoke void @_ZN3FacC2Ev(%class.Fac* %7)
-          to label %8 unwind label %23
+entry:
+  %retval = alloca i32, align 4
+  %factorial = alloca %class.Fac*, align 8
+  %exn.slot = alloca i8*
+  %ehselector.slot = alloca i32
+  %IN = alloca i32, align 4
+  store i32 0, i32* %retval, align 4
+  %call = call i8* @_Znwm(i64 16) #8
+  %0 = bitcast i8* %call to %class.Fac*
+  invoke void @_ZN3FacC2Ev(%class.Fac* %0)
+          to label %invoke.cont unwind label %lpad
 
-8:                                                ; preds = %0
-  store %class.Fac* %7, %class.Fac** %2, align 8
-  %9 = load %class.Fac*, %class.Fac** %2, align 8
-  %10 = call float @_ZN3Fac14loop_factorialEi(%class.Fac* %9, i32 3)
-  %11 = call dereferenceable(272) %"class.std::basic_ostream"* @_ZNSolsEf(%"class.std::basic_ostream"* @_ZSt4cout, float %10)
-  %12 = call dereferenceable(272) %"class.std::basic_ostream"* @_ZNSolsEPFRSoS_E(%"class.std::basic_ostream"* %11, %"class.std::basic_ostream"* (%"class.std::basic_ostream"*)* @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_)
-  %13 = load %class.Fac*, %class.Fac** %2, align 8
-  %14 = call float @_ZN3Fac15quick_factorialEi(%class.Fac* %13, i32 7)
-  %15 = call dereferenceable(272) %"class.std::basic_ostream"* @_ZNSolsEf(%"class.std::basic_ostream"* @_ZSt4cout, float %14)
-  %16 = call dereferenceable(272) %"class.std::basic_ostream"* @_ZNSolsEPFRSoS_E(%"class.std::basic_ostream"* %15, %"class.std::basic_ostream"* (%"class.std::basic_ostream"*)* @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_)
-  %17 = call dereferenceable(280) %"class.std::basic_istream"* @_ZNSirsERi(%"class.std::basic_istream"* @_ZSt3cin, i32* dereferenceable(4) %5)
-  %18 = load %class.Fac*, %class.Fac** %2, align 8
-  %19 = load i32, i32* %5, align 4
-  %20 = call float @_ZN3Fac15quick_factorialEi(%class.Fac* %18, i32 %19)
-  %21 = call dereferenceable(272) %"class.std::basic_ostream"* @_ZNSolsEf(%"class.std::basic_ostream"* @_ZSt4cout, float %20)
-  %22 = call dereferenceable(272) %"class.std::basic_ostream"* @_ZNSolsEPFRSoS_E(%"class.std::basic_ostream"* %21, %"class.std::basic_ostream"* (%"class.std::basic_ostream"*)* @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_)
+invoke.cont:                                      ; preds = %entry
+  store %class.Fac* %0, %class.Fac** %factorial, align 8
+  %1 = load %class.Fac*, %class.Fac** %factorial, align 8
+  %call1 = call float @_ZN3Fac14loop_factorialEi(%class.Fac* %1, i32 3)
+  %call2 = call dereferenceable(272) %"class.std::basic_ostream"* @_ZNSolsEf(%"class.std::basic_ostream"* @_ZSt4cout, float %call1)
+  %call3 = call dereferenceable(272) %"class.std::basic_ostream"* @_ZNSolsEPFRSoS_E(%"class.std::basic_ostream"* %call2, %"class.std::basic_ostream"* (%"class.std::basic_ostream"*)* @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_)
+  %2 = load %class.Fac*, %class.Fac** %factorial, align 8
+  %call4 = call float @_ZN3Fac15quick_factorialEi(%class.Fac* %2, i32 7)
+  %call5 = call dereferenceable(272) %"class.std::basic_ostream"* @_ZNSolsEf(%"class.std::basic_ostream"* @_ZSt4cout, float %call4)
+  %call6 = call dereferenceable(272) %"class.std::basic_ostream"* @_ZNSolsEPFRSoS_E(%"class.std::basic_ostream"* %call5, %"class.std::basic_ostream"* (%"class.std::basic_ostream"*)* @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_)
+  %call7 = call dereferenceable(280) %"class.std::basic_istream"* @_ZNSirsERi(%"class.std::basic_istream"* @_ZSt3cin, i32* dereferenceable(4) %IN)
+  %3 = load %class.Fac*, %class.Fac** %factorial, align 8
+  %4 = load i32, i32* %IN, align 4
+  %call8 = call float @_ZN3Fac15quick_factorialEi(%class.Fac* %3, i32 %4)
+  %call9 = call dereferenceable(272) %"class.std::basic_ostream"* @_ZNSolsEf(%"class.std::basic_ostream"* @_ZSt4cout, float %call8)
+  %call10 = call dereferenceable(272) %"class.std::basic_ostream"* @_ZNSolsEPFRSoS_E(%"class.std::basic_ostream"* %call9, %"class.std::basic_ostream"* (%"class.std::basic_ostream"*)* @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_)
   ret i32 0
 
-23:                                               ; preds = %0
-  %24 = landingpad { i8*, i32 }
+lpad:                                             ; preds = %entry
+  %5 = landingpad { i8*, i32 }
           cleanup
-  %25 = extractvalue { i8*, i32 } %24, 0
-  store i8* %25, i8** %3, align 8
-  %26 = extractvalue { i8*, i32 } %24, 1
-  store i32 %26, i32* %4, align 4
-  call void @_ZdlPv(i8* %6) #10
-  br label %27
+  %6 = extractvalue { i8*, i32 } %5, 0
+  store i8* %6, i8** %exn.slot, align 8
+  %7 = extractvalue { i8*, i32 } %5, 1
+  store i32 %7, i32* %ehselector.slot, align 4
+  call void @_ZdlPv(i8* %call) #9
+  br label %eh.resume
 
-27:                                               ; preds = %23
-  %28 = load i8*, i8** %3, align 8
-  %29 = load i32, i32* %4, align 4
-  %30 = insertvalue { i8*, i32 } undef, i8* %28, 0
-  %31 = insertvalue { i8*, i32 } %30, i32 %29, 1
-  resume { i8*, i32 } %31
+eh.resume:                                        ; preds = %lpad
+  %exn = load i8*, i8** %exn.slot, align 8
+  %sel = load i32, i32* %ehselector.slot, align 4
+  %lpad.val = insertvalue { i8*, i32 } undef, i8* %exn, 0
+  %lpad.val11 = insertvalue { i8*, i32 } %lpad.val, i32 %sel, 1
+  resume { i8*, i32 } %lpad.val11
 }
 
 ; Function Attrs: nobuiltin
 declare dso_local noalias i8* @_Znwm(i64) #5
 
-; Function Attrs: noinline optnone uwtable
-define linkonce_odr dso_local void @_ZN3FacC2Ev(%class.Fac* %0) unnamed_addr #6 comdat align 2 {
-  %2 = alloca %class.Fac*, align 8
-  store %class.Fac* %0, %class.Fac** %2, align 8
-  %3 = load %class.Fac*, %class.Fac** %2, align 8
-  %4 = getelementptr inbounds %class.Fac, %class.Fac* %3, i32 0, i32 1
-  store i32 0, i32* %4, align 8
-  %5 = load i32, i32* @_ZN3Fac1xE, align 4
-  %6 = add nsw i32 %5, 1
-  store i32 %6, i32* @_ZN3Fac1xE, align 4
-  call void @_ZN3Fac4initEv(%class.Fac* %3)
-  %7 = call dereferenceable(272) %"class.std::basic_ostream"* @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(%"class.std::basic_ostream"* dereferenceable(272) @_ZSt4cout, i8* getelementptr inbounds ([20 x i8], [20 x i8]* @.str, i64 0, i64 0))
-  %8 = call dereferenceable(272) %"class.std::basic_ostream"* @_ZNSolsEPFRSoS_E(%"class.std::basic_ostream"* %7, %"class.std::basic_ostream"* (%"class.std::basic_ostream"*)* @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_)
+; Function Attrs: noinline uwtable
+define linkonce_odr dso_local void @_ZN3FacC2Ev(%class.Fac* %this) unnamed_addr #0 comdat align 2 {
+entry:
+  %this.addr = alloca %class.Fac*, align 8
+  store %class.Fac* %this, %class.Fac** %this.addr, align 8
+  %this1 = load %class.Fac*, %class.Fac** %this.addr, align 8
+  %n = getelementptr inbounds %class.Fac, %class.Fac* %this1, i32 0, i32 1
+  store i32 0, i32* %n, align 8
+  %0 = load i32, i32* @_ZN3Fac1xE, align 4
+  %inc = add nsw i32 %0, 1
+  store i32 %inc, i32* @_ZN3Fac1xE, align 4
+  call void @_ZN3Fac4initEv(%class.Fac* %this1)
+  %call = call dereferenceable(272) %"class.std::basic_ostream"* @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(%"class.std::basic_ostream"* dereferenceable(272) @_ZSt4cout, i8* getelementptr inbounds ([20 x i8], [20 x i8]* @.str, i64 0, i64 0))
+  %call2 = call dereferenceable(272) %"class.std::basic_ostream"* @_ZNSolsEPFRSoS_E(%"class.std::basic_ostream"* %call, %"class.std::basic_ostream"* (%"class.std::basic_ostream"*)* @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_)
   ret void
 }
 
 declare dso_local i32 @__gxx_personality_v0(...)
 
 ; Function Attrs: nobuiltin nounwind
-declare dso_local void @_ZdlPv(i8*) #7
+declare dso_local void @_ZdlPv(i8*) #6
 
 declare dso_local dereferenceable(272) %"class.std::basic_ostream"* @_ZNSolsEf(%"class.std::basic_ostream"*, float) #1
 
-; Function Attrs: noinline nounwind optnone uwtable
-define linkonce_odr dso_local float @_ZN3Fac14loop_factorialEi(%class.Fac* %0, i32 %1) #8 comdat align 2 {
-  %3 = alloca %class.Fac*, align 8
-  %4 = alloca i32, align 4
-  %5 = alloca float, align 4
-  %6 = alloca i32, align 4
-  store %class.Fac* %0, %class.Fac** %3, align 8
-  store i32 %1, i32* %4, align 4
-  %7 = load %class.Fac*, %class.Fac** %3, align 8
-  store float 1.000000e+00, float* %5, align 4
-  store i32 2, i32* %6, align 4
-  br label %8
+; Function Attrs: noinline nounwind uwtable
+define linkonce_odr dso_local float @_ZN3Fac14loop_factorialEi(%class.Fac* %this, i32 %n) #7 comdat align 2 {
+entry:
+  %this.addr = alloca %class.Fac*, align 8
+  %n.addr = alloca i32, align 4
+  %res = alloca float, align 4
+  %i = alloca i32, align 4
+  store %class.Fac* %this, %class.Fac** %this.addr, align 8
+  store i32 %n, i32* %n.addr, align 4
+  %this1 = load %class.Fac*, %class.Fac** %this.addr, align 8
+  store float 1.000000e+00, float* %res, align 4
+  store i32 2, i32* %i, align 4
+  br label %while.cond
 
-8:                                                ; preds = %12, %2
-  %9 = load i32, i32* %6, align 4
-  %10 = load i32, i32* %4, align 4
-  %11 = icmp sle i32 %9, %10
-  br i1 %11, label %12, label %26
+while.cond:                                       ; preds = %while.body, %entry
+  %0 = load i32, i32* %i, align 4
+  %1 = load i32, i32* %n.addr, align 4
+  %cmp = icmp sle i32 %0, %1
+  br i1 %cmp, label %while.body, label %while.end
 
-12:                                               ; preds = %8
-  %13 = load i32, i32* %6, align 4
-  %14 = sitofp i32 %13 to float
-  %15 = load float, float* %5, align 4
-  %16 = fmul float %15, %14
-  store float %16, float* %5, align 4
-  %17 = load i32, i32* %6, align 4
-  %18 = add nsw i32 %17, 1
-  store i32 %18, i32* %6, align 4
-  %19 = load float, float* %5, align 4
-  %20 = getelementptr inbounds %class.Fac, %class.Fac* %7, i32 0, i32 0
-  %21 = load float*, float** %20, align 8
-  %22 = load i32, i32* %6, align 4
-  %23 = sub nsw i32 %22, 1
-  %24 = sext i32 %23 to i64
-  %25 = getelementptr inbounds float, float* %21, i64 %24
-  store float %19, float* %25, align 4
-  br label %8
+while.body:                                       ; preds = %while.cond
+  %2 = load i32, i32* %i, align 4
+  %conv = sitofp i32 %2 to float
+  %3 = load float, float* %res, align 4
+  %mul = fmul float %3, %conv
+  store float %mul, float* %res, align 4
+  %4 = load i32, i32* %i, align 4
+  %add = add nsw i32 %4, 1
+  store i32 %add, i32* %i, align 4
+  %5 = load float, float* %res, align 4
+  %array = getelementptr inbounds %class.Fac, %class.Fac* %this1, i32 0, i32 0
+  %6 = load float*, float** %array, align 8
+  %7 = load i32, i32* %i, align 4
+  %sub = sub nsw i32 %7, 1
+  %idxprom = sext i32 %sub to i64
+  %arrayidx = getelementptr inbounds float, float* %6, i64 %idxprom
+  store float %5, float* %arrayidx, align 4
+  br label %while.cond
 
-26:                                               ; preds = %8
-  %27 = load float, float* %5, align 4
-  ret float %27
+while.end:                                        ; preds = %while.cond
+  %8 = load float, float* %res, align 4
+  ret float %8
 }
 
 declare dso_local dereferenceable(272) %"class.std::basic_ostream"* @_ZNSolsEPFRSoS_E(%"class.std::basic_ostream"*, %"class.std::basic_ostream"* (%"class.std::basic_ostream"*)*) #1
 
 declare dso_local dereferenceable(272) %"class.std::basic_ostream"* @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_(%"class.std::basic_ostream"* dereferenceable(272)) #1
 
-; Function Attrs: noinline optnone uwtable
-define linkonce_odr dso_local float @_ZN3Fac15quick_factorialEi(%class.Fac* %0, i32 %1) #6 comdat align 2 {
-  %3 = alloca float, align 4
-  %4 = alloca %class.Fac*, align 8
-  %5 = alloca i32, align 4
-  store %class.Fac* %0, %class.Fac** %4, align 8
-  store i32 %1, i32* %5, align 4
-  %6 = load %class.Fac*, %class.Fac** %4, align 8
-  %7 = load i32, i32* %5, align 4
-  %8 = icmp sgt i32 %7, 18
-  br i1 %8, label %9, label %12
+; Function Attrs: noinline uwtable
+define linkonce_odr dso_local float @_ZN3Fac15quick_factorialEi(%class.Fac* %this, i32 %n) #0 comdat align 2 {
+entry:
+  %retval = alloca float, align 4
+  %this.addr = alloca %class.Fac*, align 8
+  %n.addr = alloca i32, align 4
+  store %class.Fac* %this, %class.Fac** %this.addr, align 8
+  store i32 %n, i32* %n.addr, align 4
+  %this1 = load %class.Fac*, %class.Fac** %this.addr, align 8
+  %0 = load i32, i32* %n.addr, align 4
+  %cmp = icmp sgt i32 %0, 18
+  br i1 %cmp, label %if.then, label %if.end
 
-9:                                                ; preds = %2
-  %10 = call dereferenceable(272) %"class.std::basic_ostream"* @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(%"class.std::basic_ostream"* dereferenceable(272) @_ZSt4cout, i8* getelementptr inbounds ([16 x i8], [16 x i8]* @.str.1, i64 0, i64 0))
-  %11 = call dereferenceable(272) %"class.std::basic_ostream"* @_ZNSolsEPFRSoS_E(%"class.std::basic_ostream"* %10, %"class.std::basic_ostream"* (%"class.std::basic_ostream"*)* @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_)
-  store float 0.000000e+00, float* %3, align 4
-  br label %40
+if.then:                                          ; preds = %entry
+  %call = call dereferenceable(272) %"class.std::basic_ostream"* @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(%"class.std::basic_ostream"* dereferenceable(272) @_ZSt4cout, i8* getelementptr inbounds ([16 x i8], [16 x i8]* @.str.1, i64 0, i64 0))
+  %call2 = call dereferenceable(272) %"class.std::basic_ostream"* @_ZNSolsEPFRSoS_E(%"class.std::basic_ostream"* %call, %"class.std::basic_ostream"* (%"class.std::basic_ostream"*)* @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_)
+  store float 0.000000e+00, float* %retval, align 4
+  br label %return
 
-12:                                               ; preds = %2
-  %13 = load i32, i32* %5, align 4
-  %14 = icmp slt i32 %13, 1
-  br i1 %14, label %15, label %18
+if.end:                                           ; preds = %entry
+  %1 = load i32, i32* %n.addr, align 4
+  %cmp3 = icmp slt i32 %1, 1
+  br i1 %cmp3, label %if.then4, label %if.end7
 
-15:                                               ; preds = %12
-  %16 = call dereferenceable(272) %"class.std::basic_ostream"* @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(%"class.std::basic_ostream"* dereferenceable(272) @_ZSt4cout, i8* getelementptr inbounds ([13 x i8], [13 x i8]* @.str.2, i64 0, i64 0))
-  %17 = call dereferenceable(272) %"class.std::basic_ostream"* @_ZNSolsEPFRSoS_E(%"class.std::basic_ostream"* %16, %"class.std::basic_ostream"* (%"class.std::basic_ostream"*)* @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_)
-  store float -1.000000e+00, float* %3, align 4
-  br label %40
+if.then4:                                         ; preds = %if.end
+  %call5 = call dereferenceable(272) %"class.std::basic_ostream"* @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(%"class.std::basic_ostream"* dereferenceable(272) @_ZSt4cout, i8* getelementptr inbounds ([13 x i8], [13 x i8]* @.str.2, i64 0, i64 0))
+  %call6 = call dereferenceable(272) %"class.std::basic_ostream"* @_ZNSolsEPFRSoS_E(%"class.std::basic_ostream"* %call5, %"class.std::basic_ostream"* (%"class.std::basic_ostream"*)* @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_)
+  store float -1.000000e+00, float* %retval, align 4
+  br label %return
 
-18:                                               ; preds = %12
-  %19 = getelementptr inbounds %class.Fac, %class.Fac* %6, i32 0, i32 0
-  %20 = load float*, float** %19, align 8
-  %21 = load i32, i32* %5, align 4
-  %22 = sub nsw i32 %21, 1
-  %23 = sext i32 %22 to i64
-  %24 = getelementptr inbounds float, float* %20, i64 %23
-  %25 = load float, float* %24, align 4
-  %26 = fcmp une float %25, 0.000000e+00
-  br i1 %26, label %27, label %35
+if.end7:                                          ; preds = %if.end
+  %array = getelementptr inbounds %class.Fac, %class.Fac* %this1, i32 0, i32 0
+  %2 = load float*, float** %array, align 8
+  %3 = load i32, i32* %n.addr, align 4
+  %sub = sub nsw i32 %3, 1
+  %idxprom = sext i32 %sub to i64
+  %arrayidx = getelementptr inbounds float, float* %2, i64 %idxprom
+  %4 = load float, float* %arrayidx, align 4
+  %tobool = fcmp une float %4, 0.000000e+00
+  br i1 %tobool, label %cond.true, label %cond.false
 
-27:                                               ; preds = %18
-  %28 = getelementptr inbounds %class.Fac, %class.Fac* %6, i32 0, i32 0
-  %29 = load float*, float** %28, align 8
-  %30 = load i32, i32* %5, align 4
-  %31 = sub nsw i32 %30, 1
-  %32 = sext i32 %31 to i64
-  %33 = getelementptr inbounds float, float* %29, i64 %32
-  %34 = load float, float* %33, align 4
-  br label %38
+cond.true:                                        ; preds = %if.end7
+  %array8 = getelementptr inbounds %class.Fac, %class.Fac* %this1, i32 0, i32 0
+  %5 = load float*, float** %array8, align 8
+  %6 = load i32, i32* %n.addr, align 4
+  %sub9 = sub nsw i32 %6, 1
+  %idxprom10 = sext i32 %sub9 to i64
+  %arrayidx11 = getelementptr inbounds float, float* %5, i64 %idxprom10
+  %7 = load float, float* %arrayidx11, align 4
+  br label %cond.end
 
-35:                                               ; preds = %18
-  %36 = load i32, i32* %5, align 4
-  %37 = call float @_ZN3Fac14loop_factorialEi(%class.Fac* %6, i32 %36)
-  br label %38
+cond.false:                                       ; preds = %if.end7
+  %8 = load i32, i32* %n.addr, align 4
+  %call12 = call float @_ZN3Fac14loop_factorialEi(%class.Fac* %this1, i32 %8)
+  br label %cond.end
 
-38:                                               ; preds = %35, %27
-  %39 = phi float [ %34, %27 ], [ %37, %35 ]
-  store float %39, float* %3, align 4
-  br label %40
+cond.end:                                         ; preds = %cond.false, %cond.true
+  %cond = phi float [ %7, %cond.true ], [ %call12, %cond.false ]
+  store float %cond, float* %retval, align 4
+  br label %return
 
-40:                                               ; preds = %38, %15, %9
-  %41 = load float, float* %3, align 4
-  ret float %41
+return:                                           ; preds = %cond.end, %if.then4, %if.then
+  %9 = load float, float* %retval, align 4
+  ret float %9
 }
 
 declare dso_local dereferenceable(280) %"class.std::basic_istream"* @_ZNSirsERi(%"class.std::basic_istream"*, i32* dereferenceable(4)) #1
 
-; Function Attrs: noinline optnone uwtable
-define linkonce_odr dso_local void @_ZN3Fac4initEv(%class.Fac* %0) #6 comdat align 2 {
-  %2 = alloca %class.Fac*, align 8
-  %3 = alloca i32, align 4
-  store %class.Fac* %0, %class.Fac** %2, align 8
-  %4 = load %class.Fac*, %class.Fac** %2, align 8
-  %5 = load i32, i32* @_ZN3Fac1xE, align 4
-  %6 = add nsw i32 %5, 1
-  store i32 %6, i32* @_ZN3Fac1xE, align 4
-  %7 = call i8* @_Znam(i64 72) #9
-  %8 = bitcast i8* %7 to float*
-  %9 = getelementptr inbounds %class.Fac, %class.Fac* %4, i32 0, i32 0
-  store float* %8, float** %9, align 8
-  store i32 0, i32* %3, align 4
-  br label %10
+; Function Attrs: noinline uwtable
+define linkonce_odr dso_local void @_ZN3Fac4initEv(%class.Fac* %this) #0 comdat align 2 {
+entry:
+  %this.addr = alloca %class.Fac*, align 8
+  %i = alloca i32, align 4
+  store %class.Fac* %this, %class.Fac** %this.addr, align 8
+  %this1 = load %class.Fac*, %class.Fac** %this.addr, align 8
+  %0 = load i32, i32* @_ZN3Fac1xE, align 4
+  %inc = add nsw i32 %0, 1
+  store i32 %inc, i32* @_ZN3Fac1xE, align 4
+  %call = call i8* @_Znam(i64 72) #8
+  %1 = bitcast i8* %call to float*
+  %array = getelementptr inbounds %class.Fac, %class.Fac* %this1, i32 0, i32 0
+  store float* %1, float** %array, align 8
+  store i32 0, i32* %i, align 4
+  br label %for.cond
 
-10:                                               ; preds = %19, %1
-  %11 = load i32, i32* %3, align 4
-  %12 = icmp slt i32 %11, 18
-  br i1 %12, label %13, label %22
+for.cond:                                         ; preds = %for.inc, %entry
+  %2 = load i32, i32* %i, align 4
+  %cmp = icmp slt i32 %2, 18
+  br i1 %cmp, label %for.body, label %for.end
 
-13:                                               ; preds = %10
-  %14 = getelementptr inbounds %class.Fac, %class.Fac* %4, i32 0, i32 0
-  %15 = load float*, float** %14, align 8
-  %16 = load i32, i32* %3, align 4
-  %17 = sext i32 %16 to i64
-  %18 = getelementptr inbounds float, float* %15, i64 %17
-  store float 0.000000e+00, float* %18, align 4
-  br label %19
+for.body:                                         ; preds = %for.cond
+  %array2 = getelementptr inbounds %class.Fac, %class.Fac* %this1, i32 0, i32 0
+  %3 = load float*, float** %array2, align 8
+  %4 = load i32, i32* %i, align 4
+  %idxprom = sext i32 %4 to i64
+  %arrayidx = getelementptr inbounds float, float* %3, i64 %idxprom
+  store float 0.000000e+00, float* %arrayidx, align 4
+  br label %for.inc
 
-19:                                               ; preds = %13
-  %20 = load i32, i32* %3, align 4
-  %21 = add nsw i32 %20, 1
-  store i32 %21, i32* %3, align 4
-  br label %10
+for.inc:                                          ; preds = %for.body
+  %5 = load i32, i32* %i, align 4
+  %inc3 = add nsw i32 %5, 1
+  store i32 %inc3, i32* %i, align 4
+  br label %for.cond
 
-22:                                               ; preds = %10
+for.end:                                          ; preds = %for.cond
   ret void
 }
 
@@ -291,6 +297,7 @@ declare dso_local noalias i8* @_Znam(i64) #5
 
 ; Function Attrs: noinline uwtable
 define internal void @_GLOBAL__sub_I_factorial.cpp() #0 section ".text.startup" {
+entry:
   call void @__cxx_global_var_init()
   ret void
 }
@@ -299,13 +306,12 @@ attributes #0 = { noinline uwtable "correctly-rounded-divide-sqrt-fp-math"="fals
 attributes #1 = { "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "frame-pointer"="all" "less-precise-fpmad"="false" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
 attributes #2 = { nounwind "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "frame-pointer"="all" "less-precise-fpmad"="false" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
 attributes #3 = { nounwind }
-attributes #4 = { noinline norecurse optnone uwtable "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "frame-pointer"="all" "less-precise-fpmad"="false" "min-legal-vector-width"="0" "no-infs-fp-math"="false" "no-jump-tables"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
+attributes #4 = { noinline norecurse uwtable "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "frame-pointer"="all" "less-precise-fpmad"="false" "min-legal-vector-width"="0" "no-infs-fp-math"="false" "no-jump-tables"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
 attributes #5 = { nobuiltin "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "frame-pointer"="all" "less-precise-fpmad"="false" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
-attributes #6 = { noinline optnone uwtable "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "frame-pointer"="all" "less-precise-fpmad"="false" "min-legal-vector-width"="0" "no-infs-fp-math"="false" "no-jump-tables"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
-attributes #7 = { nobuiltin nounwind "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "frame-pointer"="all" "less-precise-fpmad"="false" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
-attributes #8 = { noinline nounwind optnone uwtable "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "frame-pointer"="all" "less-precise-fpmad"="false" "min-legal-vector-width"="0" "no-infs-fp-math"="false" "no-jump-tables"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
-attributes #9 = { builtin }
-attributes #10 = { builtin nounwind }
+attributes #6 = { nobuiltin nounwind "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "frame-pointer"="all" "less-precise-fpmad"="false" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
+attributes #7 = { noinline nounwind uwtable "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "frame-pointer"="all" "less-precise-fpmad"="false" "min-legal-vector-width"="0" "no-infs-fp-math"="false" "no-jump-tables"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
+attributes #8 = { builtin }
+attributes #9 = { builtin nounwind }
 
 !llvm.module.flags = !{!0}
 !llvm.ident = !{!1}
